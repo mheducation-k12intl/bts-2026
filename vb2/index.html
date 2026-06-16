@@ -86,8 +86,8 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
 /* ---------- Decorative animated red lines ---------- */
 .redlines{position:absolute;inset:0;pointer-events:none;z-index:-1;}
 .rl{position:absolute;background:var(--mh-red);transition:transform .55s linear;}
-.rlh{height:10px;transform:scaleX(0);}
-.rlv{width:10px;transform:scaleY(0);}
+.rlh{height:15px;transform:scaleX(0);}
+.rlv{width:15px;transform:scaleY(0);}
 .redlines.play .rl{transform:scale(1);}
 .redlines-m{display:none;}
 
@@ -365,6 +365,8 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
   .redlines{display:none;}
   .redlines-m{display:block;position:absolute;left:0;right:0;pointer-events:none;z-index:0;}
   .redlines-m .rl{z-index:0;}
+  .rlh{height:10px;}            /* mobile: match hero mobile line (10px) */
+  .rlv{width:10px;}
   .section .container{position:relative;}
   .section .container>*{position:relative;z-index:1;}
   .eyebrow,.sec-title,.sec-intro,.sec-content,.card,.feat-card,.community-card,
