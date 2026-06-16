@@ -1738,6 +1738,36 @@ MEA</p>
     }catch(e){ /* non-rendered SVG; leave visible */ }
   })();
 
+  /* ---------- Mobile hero red line: keep the bottom horizontal aligned to the white box bottom ----------
+     The box's bottom is content-driven (not a fixed % of the hero), so a static viewBox Y can't track it.
+     Measure the box bottom each time and rewrite the bottom-Y of the mobile path(s). preserveAspectRatio
+     is "none", so viewBox 0..520 maps linearly to the svg height. */
+  (function(){
+    var svg = document.querySelector('.hero-path-m');
+    var box = document.querySelector('.hero-box');
+    if(!svg || !box) return;
+    var paths = svg.querySelectorAll('.hpm');
+    var OFFSET = 10;                 /* viewBox units below the box bottom — tweak for the framing gap */
+    var raf = null;
+    function apply(){
+      raf = null;
+      if(!window.matchMedia('(max-width:1079px)').matches) return;  /* mobile path only (<1080px) */
+      var sr = svg.getBoundingClientRect();
+      if(sr.height <= 0) return;     /* extra guard: .hero-path-m hidden */
+      var br = box.getBoundingClientRect();
+      var y = ((br.bottom - sr.top) / sr.height) * 520 + OFFSET;
+      paths.forEach(function(p){
+        p.setAttribute('d', p.getAttribute('d').replace(/(M\s*-?\d+\s+)[\d.]+/, '$1' + y.toFixed(1)));
+      });
+    }
+    function schedule(){ if(raf === null) raf = requestAnimationFrame(apply); }
+    window.addEventListener('resize', schedule);
+    window.addEventListener('load', apply);
+    if(document.fonts && document.fonts.ready){ document.fonts.ready.then(apply); }
+    setTimeout(apply, 300);
+    apply();
+  })();
+
   /* ---------- Webinar tables: always-visible custom horizontal scrollbar (works on iOS) ---------- */
   (function(){
     document.querySelectorAll('.wt-scroll').forEach(function(scroll){
