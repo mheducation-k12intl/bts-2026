@@ -1694,18 +1694,25 @@ MEA</p>
     });
   })();
 
-  /* ---------- Hero red path: draw-on left->right once on load (pure CSS dash) ---------- */
+  /* ---------- Hero red path: draw-on along the bracket once on load (CSS dash) ----------
+     Force a reflow between the hidden and drawn states so the transition actually runs
+     (the previous rAF pattern jumped straight to drawn — line appeared "in full"). */
   (function(){
     var p = document.querySelector('.hero-line');
     if(!p) return;
     try{
       var len = p.getTotalLength();
+      p.style.transition = 'none';
       p.style.strokeDasharray = len;
-      p.style.strokeDashoffset = len;
-      p.style.transition = 'stroke-dashoffset 1.6s ease .35s';
-      requestAnimationFrame(function(){
-        requestAnimationFrame(function(){ p.style.strokeDashoffset = '0'; });
-      });
+      p.style.strokeDashoffset = len;                         /* hide immediately (no flash) */
+      p.getBoundingClientRect();                              /* commit the hidden state */
+      var draw = function(){
+        p.style.transition = 'stroke-dashoffset 1.8s ease .3s';
+        p.style.strokeDashoffset = '0';
+      };
+      /* draw once the hero photo is painted, so the animation is visible over it */
+      if(document.readyState === 'complete'){ draw(); }
+      else { window.addEventListener('load', draw); }
     }catch(e){ /* non-rendered SVG; leave visible */ }
   })();
 
