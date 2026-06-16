@@ -401,12 +401,12 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
   .nav-burger{display:block;background:none;border:0;padding:0;width:39px;height:39px;cursor:pointer;}
 
   /* hero — mobile assets, card flush-left ~51%, single continuous red line behind PNG */
-  .hero{height:auto;background:none;}
+  .hero{height:auto;min-height:500px;background:none;}
   .hero-stage{position:relative;width:100%;height:auto;transform:none!important;}
   .hero-bg,.hero-obj{display:none;}
-  .hero-bg-m{display:block;position:relative;width:100%;height:auto;z-index:1;}
-  .hero-obj-m{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:4;pointer-events:none;}
-  .hero-box{position:absolute;left:0;top:64px;width:51%;z-index:5;background:rgba(255,255,255,.90);
+  .hero-bg-m{display:block;position:relative;width:100%;height:auto;top:-40px;z-index:1;}
+  .hero-obj-m{display:block;position:absolute;inset:0;top:-40px;width:100%;height:100%;object-fit:cover;z-index:7;pointer-events:none;}
+  .hero-box{position:absolute;left:0;top:30%;width:46%;z-index:5;background:rgba(255,255,255,.90);
     padding:20px 16px 22px 24px;box-shadow:0 10px 24px rgba(0,0,0,.12);}
   .hero-box .eyebrow{white-space:normal;font-size:13px;letter-spacing:2.6px;line-height:1.4;}
   .hero-box .redline-sm{margin-top:12px;}
@@ -417,8 +417,9 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
   .hero-path{display:none;}
   .hero-mask{height:50px;}            /* mobile: shorter fade */
   /* mobile continuous red line behind the PNG */
-  .hero-path-m{display:block;position:absolute;left:0;top:0;width:100%;height:100%;z-index:3;pointer-events:none;overflow:visible;}
-  .hero-path-m path{fill:none;stroke:var(--mh-red);stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;}
+  .hero-path-m{display:block;position:absolute;left:0;top:0;width:100%;height:100%;z-index:6;pointer-events:none;overflow:visible;}
+  .hero-path-m path{fill:none;stroke:var(--mh-red);stroke-width:15;stroke-linecap:butt;stroke-linejoin:miter;}
+  .hpm-base{display:inline;} .hpm-500,.hpm-400{display:none;}   /* which mobile path shows per width */
   .hero-btns-mobile{display:flex;flex-direction:column;gap:13px;margin-top:24px;}
   .hero-btns-mobile .btn{width:100%;}
   #masthead{padding-bottom:60px;}
@@ -551,6 +552,15 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
   .cs-video{height:auto;}
   .cs-video img{height:auto;}
 }
+/* hero fine-tuning — narrow phones (override the ≤1079px rules) */
+@media (max-width:500px){
+  .hero-box{top:30%;width:51%;padding:20px 12px 22px 24px;}
+  .hero-bg-m,.hero-obj-m{width:120%;top:-40px;}
+  .hpm-base{display:none;} .hpm-500{display:inline;} .hpm-400{display:none;}
+}
+@media (max-width:400px){
+  .hpm-500{display:none;} .hpm-400{display:inline;}
+}
 </style>
 </head>
 <body>
@@ -676,7 +686,9 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
       </svg>
       <!-- (3m) mobile red line — single continuous path behind the PNG -->
       <svg class="hero-path-m" viewBox="0 0 440 520" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M -2 150 H 224 V 360 H 330 V 230 H 442"/>
+        <path class="hpm hpm-base" d="M -2 468 H 210 V 163 H 442"/>
+        <path class="hpm hpm-500" d="M -2 516 H 232 V 164 H 442"/>
+        <path class="hpm hpm-400" d="M -2 558 H 232 V 164 H 442"/>
       </svg>
       <!-- (4) people PNG on top -->
       <img class="hero-obj" src="assets/hero-desktop-obj.png" alt="Teacher working with primary school students in a classroom">
