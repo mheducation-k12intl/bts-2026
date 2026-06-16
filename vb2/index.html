@@ -225,6 +225,9 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
 .feat-cta{position:absolute;right:38px;bottom:31px;}
 .wt-wrap{margin-top:64px;}
 .wt-scroll{position:relative;}
+/* custom always-visible horizontal scroll indicator (mobile only; iOS hides native bars) */
+.wt-sbar{display:none;}
+.wt-sthumb{background:var(--mh-red);border-radius:4px;}
 .webinar-table{width:100%;}
 .wt-head,.wt-row{display:grid;grid-template-columns:597px 358px 1fr 40px;align-items:center;}
 .wt-head{font-weight:600;font-size:18px;line-height:1.5;padding-bottom:12px;border-bottom:1px solid var(--mh-border);}
@@ -462,8 +465,10 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
   .feat-meta{position:static;grid-template-columns:57px auto;font-size:16px;margin-top:18px;}
   .feat-cta{position:static;display:inline-flex;margin-top:24px;}
   .wt-scroll{overflow-x:auto;scrollbar-width:none;}
-  .wt-scroll::-webkit-scrollbar{display:none;}
+  .wt-scroll::-webkit-scrollbar{display:none;}            /* hide native; custom bar below is always-visible */
   .webinar-table{min-width:860px;}
+  .wt-sbar{display:block;position:relative;height:8px;margin:14px 0 0;background:#eaeaea;border-radius:4px;touch-action:none;}
+  .wt-sthumb{position:absolute;top:0;left:0;height:8px;min-width:32px;border-radius:4px;}
   .wt-head,.wt-row{grid-template-columns:330px 240px 1fr 56px;}
   .wt-row{font-size:15px;height:63px;}
   .wt-head{font-size:15px;}
@@ -1719,6 +1724,34 @@ MEA</p>
       if(document.readyState === 'complete'){ draw(); }
       else { window.addEventListener('load', draw); }
     }catch(e){ /* non-rendered SVG; leave visible */ }
+  })();
+
+  /* ---------- Webinar tables: always-visible custom horizontal scrollbar (works on iOS) ---------- */
+  (function(){
+    document.querySelectorAll('.wt-scroll').forEach(function(scroll){
+      var bar = document.createElement('div'); bar.className = 'wt-sbar'; bar.setAttribute('aria-hidden','true');
+      var thumb = document.createElement('div'); thumb.className = 'wt-sthumb';
+      bar.appendChild(thumb);
+      scroll.parentNode.insertBefore(bar, scroll.nextSibling);
+      function update(){
+        var sw = scroll.scrollWidth, cw = scroll.clientWidth;
+        if(sw <= cw + 1){ bar.style.display = 'none'; return; }   /* no overflow -> nothing to show */
+        bar.style.display = '';                                    /* fall back to CSS (block on mobile, none on desktop) */
+        thumb.style.width = (cw / sw * 100) + '%';
+        thumb.style.left  = (scroll.scrollLeft / sw * 100) + '%';
+      }
+      scroll.addEventListener('scroll', update, { passive:true });
+      window.addEventListener('resize', update);
+      window.addEventListener('load', update);
+      setTimeout(update, 400);
+      /* drag the thumb to scroll */
+      var dragging = false, startX = 0, startLeft = 0;
+      thumb.addEventListener('pointerdown', function(e){ dragging = true; startX = e.clientX; startLeft = scroll.scrollLeft; try{ thumb.setPointerCapture(e.pointerId); }catch(_){} e.preventDefault(); });
+      thumb.addEventListener('pointermove', function(e){ if(!dragging) return; var dx = e.clientX - startX; scroll.scrollLeft = startLeft + dx * (scroll.scrollWidth / scroll.clientWidth); });
+      thumb.addEventListener('pointerup',   function(){ dragging = false; });
+      thumb.addEventListener('pointercancel', function(){ dragging = false; });
+      update();
+    });
   })();
 
   /* ---------- Draft form: prevent submit (Marketo form 22132 replaces this) ---------- */
