@@ -202,7 +202,7 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
 .acc-icon svg{width:100%;height:100%;display:block;}
 .acc-icon .vbar{transition:transform .25s ease;transform-origin:center;}
 .acc-head[aria-expanded="true"] .acc-icon .vbar{transform:scaleY(0);}
-.acc-panel{display:none;padding:6px 0 34px;}
+.acc-panel{display:none;padding:6px 0 34px;margin-top:-58px;}
 .acc-head[aria-expanded="true"]+.acc-panel{display:block;}
 .acc-links{margin-left:calc(50% + 15px);font-weight:300;font-size:18px;line-height:1.8;}
 .acc-links a{display:block;color:#000;text-decoration:underline;text-underline-offset:3px;}
@@ -356,6 +356,7 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
   .sec-title{font-size:34px;line-height:1.15;letter-spacing:-.5px;margin-top:24px;max-width:400px;}
   .sec-intro{font-size:16px;line-height:1.5;margin-top:18px;max-width:400px;}
   .sec-content{margin-top:40px;}
+  .acc-panel{margin-top:0;}            /* mobile: no negative pull */
   .cta{font-size:15px;}
   p,.sec-intro,.wn-body,.sp-body,.feat-desc,.act-body,.ins-desc{font-size:16px;}
   /* h3 (cards / items) on mobile */
