@@ -239,10 +239,10 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
 /* ==========================================================================
    SECTION 6 — EDUCATOR COMMUNITY
    ========================================================================== */
-.community-card{display:grid;grid-template-columns:423px 1fr;min-height:502px;overflow:hidden;}
-.community-img{border-radius:9px 0 0 9px;overflow:hidden;}
+.community-card{position:relative;min-height:502px;overflow:hidden;}
+.community-img{position:absolute;left:0;top:0;bottom:0;width:423px;border-radius:9px 0 0 9px;overflow:hidden;}
 .community-img img{width:100%;height:100%;object-fit:cover;}
-.community-content{padding:68px 60px 60px 30px;}
+.community-content{padding:68px 60px 60px 453px;}
 .community-content .sec-title{max-width:783px;}
 .community-content .sec-intro{max-width:828px;}
 .community-content .cta{margin-top:32px;}
@@ -463,8 +463,8 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
   /* community — image AFTER text (kicker+title+lede+CTA first, image last) */
   .community-card{display:flex;flex-direction:column;border:0;min-height:0;}
   .community-card:hover{box-shadow:none;}
-  .community-img{order:2;aspect-ratio:1.76/1;height:auto;border:1px solid var(--mh-border);border-radius:10px;margin-top:40px;}
-  .community-content{order:1;padding:0;}
+  .community-img{position:static;width:auto;aspect-ratio:1.76/1;height:auto;border:1px solid var(--mh-border);border-radius:10px;margin-top:40px;}
+  .community-content{padding:0;}
   .community-content .sec-intro{font-size:16px;}
 
   /* team */
@@ -500,7 +500,7 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
   .ins-content h3{font-size:19px;}
   .ins-desc{font-size:16px;}
   .ins-content .cta{left:25px;bottom:30px;}
-  .ins-bullets{top:295px;right:25px;}
+  .ins-bullets{top:auto;bottom:280px;right:25px;}
   .ins-arrows{right:25px;bottom:22px;}
 
   /* case study */
@@ -1094,13 +1094,13 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
       <div class="rl rlh" style="top:190px;right:18%;left:60%;transform-origin:right;transition-delay:.55s;"></div>
     </div>
     <div class="card community-card">
-      <div class="community-img">
-        <img src="assets/figma/img25412381592_08c73af4.jpg" alt="Group of educators smiling together at a community event" loading="lazy">
-      </div>
       <div class="community-content">
         <p class="eyebrow">McGraw Hill Educator Community</p>
         <div class="redline-sm" aria-hidden="true"></div>
         <h2 class="sec-title">Teaching is easier when you're not doing it alone</h2>
+        <div class="community-img">
+          <img src="assets/figma/img25412381592_08c73af4.jpg" alt="Group of educators smiling together at a community event" loading="lazy">
+        </div>
         <p class="sec-intro">Connect with educators around the world using the same programs. Ask questions, share what works, and pick up ideas you can use in your classroom tomorrow. Free to join, open to all McGraw Hill schools. </p>
         <a class="cta" href="#"><span class="cta-txt">Join the Community</span> <svg class="cta-arr" width="19" height="15" viewBox="0 0 19 15" aria-hidden="true"><use href="#icon-arrow"></use></svg></a>
       </div>
