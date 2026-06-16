@@ -418,7 +418,7 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
   .hero-mask{height:50px;}            /* mobile: shorter fade */
   /* mobile continuous red line behind the PNG */
   .hero-path-m{display:block;position:absolute;left:0;top:0;width:100%;height:100%;z-index:6;pointer-events:none;overflow:visible;}
-  .hero-path-m path{fill:none;stroke:var(--mh-red);stroke-width:15;stroke-linecap:butt;stroke-linejoin:miter;}
+  .hero-path-m path{fill:none;stroke:var(--mh-red);stroke-width:15;vector-effect:non-scaling-stroke;stroke-linecap:butt;stroke-linejoin:miter;}
   .hpm-base{display:inline;} .hpm-500,.hpm-400{display:none;}   /* which mobile path shows per width */
   .hero-btns-mobile{display:flex;flex-direction:column;gap:13px;margin-top:24px;}
   .hero-btns-mobile .btn{width:100%;}
@@ -1747,7 +1747,7 @@ MEA</p>
     var box = document.querySelector('.hero-box');
     if(!svg || !box) return;
     var paths = svg.querySelectorAll('.hpm');
-    var OFFSET = 10;                 /* viewBox units below the box bottom — tweak for the framing gap */
+    var GAP_PX = 7;                  /* constant framing gap below the box bottom, in PIXELS (tweak freely) */
     var raf = null;
     function apply(){
       raf = null;
@@ -1755,7 +1755,8 @@ MEA</p>
       var sr = svg.getBoundingClientRect();
       if(sr.height <= 0) return;     /* extra guard: .hero-path-m hidden */
       var br = box.getBoundingClientRect();
-      var y = ((br.bottom - sr.top) / sr.height) * 520 + OFFSET;
+      /* place the bottom line a CONSTANT GAP_PX pixels below the box bottom, then convert to viewBox units */
+      var y = ((br.bottom - sr.top + GAP_PX) / sr.height) * 520;
       paths.forEach(function(p){
         p.setAttribute('d', p.getAttribute('d').replace(/(M\s*-?\d+\s+)[\d.]+/, '$1' + y.toFixed(1)));
       });
