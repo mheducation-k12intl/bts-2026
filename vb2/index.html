@@ -1658,7 +1658,7 @@ MEA</p>
     t2.addEventListener('click', function(){ select(2); });
   })();
 
-  /* ---------- Decorative red lines: animate left-to-right on scroll, once ---------- */
+  /* ---------- Decorative red lines: draw in on scroll-into-view, reverse on scroll-out, every time ---------- */
   (function(){
     var groups = document.querySelectorAll('[data-redlines]');
     if(!('IntersectionObserver' in window)){
@@ -1667,7 +1667,7 @@ MEA</p>
     }
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(en){
-        if(en.isIntersecting){ en.target.classList.add('play'); io.unobserve(en.target); }
+        en.target.classList.toggle('play', en.isIntersecting);   /* in view -> draw; out -> reverse */
       });
     }, { threshold: 0.05 });
     groups.forEach(function(g){ io.observe(g); });
