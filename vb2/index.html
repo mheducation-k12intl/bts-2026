@@ -424,7 +424,7 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
   /* mobile continuous red line behind the PNG */
   .hero-path-m{display:block;position:absolute;left:0;top:0;width:100%;height:100%;z-index:6;pointer-events:none;overflow:visible;}
   .hero-path-m path{fill:none;stroke:var(--mh-red);stroke-width:15;vector-effect:non-scaling-stroke;stroke-linecap:butt;stroke-linejoin:miter;}
-  .hpm-base{display:inline;} .hpm-500,.hpm-400{display:none;}   /* which mobile path shows per width */
+  .hpm-base{display:inline;} .hpm-500{display:none;}   /* base path >500px */
   .hero-btns-mobile{display:flex;flex-direction:column;gap:13px;margin-top:24px;}
   .hero-btns-mobile .btn{width:100%;}
   #masthead{padding-bottom:60px;}
@@ -561,10 +561,7 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
 @media (max-width:500px){
   .hero-box{top:30%;width:51%;padding:20px 12px 22px 24px;}
   .hero-bg-m,.hero-obj-m{width:120%;top:-40px;}
-  .hpm-base{display:none;} .hpm-500{display:inline;} .hpm-400{display:none;}
-}
-@media (max-width:400px){
-  .hpm-500{display:none;} .hpm-400{display:inline;}
+  .hpm-base{display:none;} .hpm-500{display:inline;}   /* 500-width path ≤500px (incl ≤400) */
 }
 </style>
 </head>
@@ -691,9 +688,8 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
       </svg>
       <!-- (3m) mobile red line — single continuous path behind the PNG -->
       <svg class="hero-path-m" viewBox="0 0 440 520" preserveAspectRatio="none" aria-hidden="true">
-        <path class="hpm hpm-base" d="M -2 468 H 210 V 163 H 442"/>
-        <path class="hpm hpm-500" d="M -2 516 H 232 V 164 H 442"/>
-        <path class="hpm hpm-400" d="M -2 558 H 232 V 164 H 442"/>
+        <path class="hpm hpm-base" d="M -2 468 H 205 V 161 H 442"/>
+        <path class="hpm hpm-500" d="M -2 516 H 227 V 162 H 442"/>
       </svg>
       <!-- (4) people PNG on top -->
       <img class="hero-obj" src="assets/hero-desktop-obj.png" alt="Teacher working with primary school students in a classroom">
