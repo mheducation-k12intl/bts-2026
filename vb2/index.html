@@ -91,7 +91,7 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
 .redlines.play .rl{transform:scale(1);}
 .redlines-m{display:none;}
 /* mobile decorative red lines — SVG engine (like the hero): resizes with width, 15px constant stroke, behind content */
-.rlm-svg{display:none;position:absolute;left:0;width:100%;z-index:0;pointer-events:none;overflow:visible;}
+.rlm-svg{display:none;position:absolute;left:50%;width:100vw;transform:translateX(-50%);z-index:0;pointer-events:none;overflow:visible;}
 .rlm-svg path{fill:none;stroke:var(--mh-red);stroke-width:15;vector-effect:non-scaling-stroke;stroke-linecap:butt;stroke-linejoin:miter;}
 
 /* ==========================================================================
@@ -726,8 +726,7 @@ section{scroll-margin-top:calc(var(--nav-h) + 10px);}
       <!-- MOBILE red line (whats-new). Adjust live: x = 0–440 (=screen width), y = 0–[viewBox height, here 400].
            Tweak the path d's and the top/height in the style. -->
       <svg class="rlm-svg" viewBox="0 0 440 400" preserveAspectRatio="none" aria-hidden="true" style="top:130px;height:400px;">
-        <path d="M 0 50 H 56"/>
-        <path d="M 440 170 H 392 V 320 H 440"/>
+        <path d="M -40 200 H 320 V 420 H 620 V 320"/>
       </svg>
       <div class="snap-viewport" id="wnViewport">
         <article class="card wn-card">
